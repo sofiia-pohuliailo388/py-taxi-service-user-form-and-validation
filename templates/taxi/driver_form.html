@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ object|yesno:"Update,Create" }} car</h1>
+  {% if object %}
+    <h1>Update license for {{ object.username }}</h1>
+  {% else %}
+    <h1>Create driver</h1>
+  {% endif %}
 
   <form method="post" action="" novalidate>
     {% csrf_token %}
@@ -12,17 +16,17 @@
       {% if object %}
         Save changes
       {% else %}
-        Create car
+        Create driver
       {% endif %}
     </button>
 
     {% if object %}
-      <a href="{% url 'taxi:car-detail' pk=object.pk %}"
+      <a href="{% url 'taxi:driver-detail' pk=object.pk %}"
          class="btn btn-secondary">
         Cancel
       </a>
     {% else %}
-      <a href="{% url 'taxi:car-list' %}"
+      <a href="{% url 'taxi:driver-list' %}"
          class="btn btn-secondary">
         Cancel
       </a>
